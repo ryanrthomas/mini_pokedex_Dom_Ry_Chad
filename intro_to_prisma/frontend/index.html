@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./src/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heroes</title>
+  </head>
+  <body>
+   <div class="container">
+        <div class="header">
+            <h1>⚔️ Hero & Weapon Dashboard</h1>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('heroes', this)">🦸 Heroes</button>
+            <button class="tab-btn" onclick="showTab('weapons', this)">⚔️ Weapons</button>
+            <button class="tab-btn" onclick="showTab('weapon-stats', this)">📊 Weapon Stats</button>
+        </div>
+
+        <div class="content">
+            <div id="heroes" class="tab-content active">
+                <div class="loading" id="heroes-loading">Loading heroes...</div>
+                <div class="error" id="heroes-error" style="display: none;"></div>
+                <div class="grid" id="heroes-grid"></div>
+            </div>
+
+            <div id="weapons" class="tab-content">
+                <div class="loading" id="weapons-loading">Loading weapons...</div>
+                <div class="error" id="weapons-error" style="display: none;"></div>
+                <div class="grid" id="weapons-grid"></div>
+            </div>
+
+            <div id="weapon-stats" class="tab-content">
+                <div class="loading" id="stats-loading">Loading weapon stats...</div>
+                <div class="error" id="stats-error" style="display: none;"></div>
+                <div class="grid" id="stats-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

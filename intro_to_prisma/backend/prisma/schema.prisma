@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Hero {
+  id        Int      @id @default(autoincrement())
+  name      String
+  class     Role
+  level     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  weapon Weapon[]
+  backpack Backpack?
+}
+
+model Weapon {
+  id        Int       @id @default(autoincrement())
+  hero_id   Int
+  backpack_id Int
+  name      String
+  rarity    Rarity
+  description String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  hero Hero @relation(fields: [hero_id], references: [id])
+  backpack Backpack @relation(fields: [backpack_id], references: [id])
+  weapon_stats WeaponStats[]
+}
+
+model WeaponStats {
+  id        Int      @id @default(autoincrement())
+  weapon_id Int
+  weapon_str Int
+  weapon_def Int
+  weapon_int Int
+  weapon_crit Int
+
+  weapon Weapon @relation(fields: [weapon_id], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Backpack {
+  id Int @id @default(autoincrement()) 
+  backpack_size Int 
+  hero_id Int @unique
+  
+  hero Hero @relation(fields: [hero_id], references: [id])
+  weapon Weapon[]
+}
+
+enum Rarity {
+  COMMON
+  UNCOMMON
+  RARE
+  HEROIC
+  LEGENDARY
+  MYTHICAL
+}
+
+enum Role {
+  TANK
+  ASSASSIN
+  MAGE
+  FOUNTAIN_GUARD
+}
